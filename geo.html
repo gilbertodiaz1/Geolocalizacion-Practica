@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Localizacion con HTML5</title>
+	<script type="text/javascript">
+		function localizar()
+		{
+			navigator.geolocation.getCurrentPosition(mapa,error);
+		}
+		function mapa(pos)
+		{
+			var latitud = pos.coords.latitude;
+			var longitud = pos.coords.longitude;
+			var precision = pos.coords.accuracy;
+			alert("Latitud ="+latitud+" Longitud="+longitud+"Precision ="+precision);
+		}
+		function error(errorC)
+		{
+			if(errorC.code == 0)
+				alert("Error desconocido");
+			else if(errorC.code == 1)
+				alert("Permiso denegado por el usuario")
+			else if(errorC.code == 2)
+				alert("No se pudo obtener la pocision actual")
+			else if(errorC.code == 3)
+				alert("Tiempo agotado")
+		}
+	</script>
+</head>
+<body onload="localizar()">
+	
+</body>
+</html>
