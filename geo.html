@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>Localizacion con HTML5</title>
+	<!-- Api necesaria para mostrar las cordenadas en el google maps -->
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript">
 		function localizar()
 		{
@@ -10,10 +12,28 @@
 		}
 		function mapa(pos)
 		{
+			//esta variable sirve para indicarle en que objeto cargara la api 
+			var contenedor = document.getElementById("mapaID");
 			var latitud = pos.coords.latitude;
 			var longitud = pos.coords.longitude;
-			var precision = pos.coords.accuracy;
-			alert("Latitud ="+latitud+" Longitud="+longitud+"Precision ="+precision);
+			//var precision = pos.coords.accuracy;
+			//alert("Latitud ="+latitud+" Longitud="+longitud+"Precision ="+precision);
+
+			//esta variable fija el centro en el mapa con los datos optenidos
+			var centro = new google.maps.LatLng(latitud,longitud);
+			//Propiedades de la api de google
+			var propiedades = {
+				center: centro,
+				//draggable: false,
+				//KeyBoardShortcuts: false,
+				//mapTypeControl: false,
+				mapTypeID: google.maps.MapTypeId.ROADMAP,
+				//navigationControl: false,
+				//scrollwheel: false,
+				//streetViewControl: false,
+				zoom: 16,
+			};
+			var map = new google.maps.Map(contenedor,propiedades);
 		}
 		function error(errorC)
 		{
@@ -29,6 +49,8 @@
 	</script>
 </head>
 <body onload="localizar()">
+	
+	<div id="mapaID" style="width:600px; height:500px; margin: 0 auto"></div>
 	
 </body>
 </html>
